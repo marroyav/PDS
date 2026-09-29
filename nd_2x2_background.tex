@@ -1,0 +1,205 @@
+\section{DUNE Near Detector 2$\times$2 demonstrator}
+\label{sec:nd2x2}
+
+The ND-LAr 2$\times$2 demonstrator requires a different geometrical treatment
+from the VD cathode system. It consists of four optically segmented modules.
+Each module is approximately
+\begin{equation}
+D_x\simeq\SI{0.67}{m},\qquad
+D_y\simeq\SI{0.67}{m},\qquad
+D_z\simeq\SI{1.8}{m},
+\end{equation}
+and is divided by a central cathode into two optically isolated TPC volumes.
+The light system uses wall-mounted ArCLight and Light Collection Module (LCM)
+detectors, with roughly 30\% optical coverage per TPC. Representative quoted
+photon-detection efficiencies are
+\begin{equation}
+\epsilon_{\rm ArCLight}\sim2\times10^{-3},\qquad
+\epsilon_{\rm LCM}\sim6\times10^{-3}.
+\end{equation}
+
+\subsection{Intrinsic $^{39}$Ar normalization}
+
+The quoted active LAr mass of the complete 2$\times$2 is approximately
+\begin{equation}
+M_{2\times2}\simeq\SI{2.6}{t}.
+\end{equation}
+For atmospheric argon with $S_{39}=0.964$ Bq/kg,
+\begin{equation}
+\boxed{
+R_{39,\rm decay}^{2\times2}
+=S_{39}M_{2\times2}
+\simeq(0.964)(2600)
+\simeq\SI{2.51e3}{s^{-1}} .
+}
+\end{equation}
+Assuming four equivalent modules and two optically isolated TPCs per module,
+\begin{align}
+R_{39,\rm decay}^{\rm module}
+&\simeq\SI{6.27e2}{s^{-1}},\\
+R_{39,\rm decay}^{\rm TPC}
+&\simeq\boxed{\SI{3.13e2}{s^{-1}}}.
+\end{align}
+This mass-based normalization is preferable to deriving the active mass from
+the external module dimensions.
+
+\subsection{Exact wall-detector geometrical acceptance}
+
+For optical detector $j$ mounted on a wall, the direct-light probability from
+a source at $\bm r$ is
+\begin{equation}
+P_j(\bm r)=\frac{\Omega_j(\bm r)}{4\pi},
+\end{equation}
+where $\Omega_j$ is the solid angle subtended by the detector.
+
+For a centered rectangular detector of half-widths $a,b$ at normal distance
+$d$,
+\begin{equation}
+\Omega_{\rm rect}
+=
+4\tan^{-1}\left[
+\frac{ab}{d\sqrt{d^2+a^2+b^2}}
+\right].
+\end{equation}
+For an off-axis source the exact rectangular solid angle is
+\begin{equation}
+\Omega_j(\bm r)
+=
+\sum_{p=\pm1}\sum_{q=\pm1}
+pq\,\tan^{-1}\left[
+\frac{X_pY_q}
+{d\sqrt{d^2+X_p^2+Y_q^2}}
+\right],
+\label{eq:NDsolidangle}
+\end{equation}
+where $X_p,Y_q$ are signed distances from the projected source position to
+the four panel edges.
+
+For a uniform source distribution in one TPC, define
+\begin{equation}
+\boxed{
+\mathcal G_j^{\rm ND}
+=
+\frac{1}{V_{\rm TPC}}
+\int_{V_{\rm TPC}}
+\frac{\Omega_j(\bm r)}{4\pi}\,d^3r .
+}
+\label{eq:NDgeom}
+\end{equation}
+This is the mean direct-photon interception probability of detector $j$.
+
+The $^{39}$Ar PE rate is therefore
+\begin{equation}
+\boxed{
+R_{\rm PE,39}^{(j)}
+=
+a_{39}V_{\rm TPC}\,
+\overline N_{\gamma,39}\,
+\mathcal G_j^{\rm ND}\,
+P_{{\rm transport},j}\,
+\epsilon_j .
+}
+\label{eq:ND39exact}
+\end{equation}
+Once the actual ArCLight/LCM panel positions and dimensions are inserted,
+Eq.~\eqref{eq:NDgeom} can be evaluated channel by channel without a full
+optical Monte Carlo.
+
+\subsection{Coverage approximation}
+
+As a zeroth-order cross-check, let
+\begin{equation}
+f_{\rm cov}\simeq0.30
+\end{equation}
+be the instrumented fraction of the enclosing optical surface. If fractions
+$f_A$ and $f_L$ of that area use ArCLight and LCM,
+\begin{equation}
+f_A+f_L=1,
+\qquad
+\overline\epsilon_{\rm PDS}
+=f_A\epsilon_{\rm ArCLight}+f_L\epsilon_{\rm LCM}.
+\end{equation}
+Under an isotropically mixed surface-flux approximation,
+\begin{equation}
+\boxed{
+R_{\rm PE,39}^{\rm TPC}
+\sim
+R_{39,\rm decay}^{\rm TPC}\,
+\overline N_{\gamma,39}\,
+f_{\rm cov}\,
+\overline\epsilon_{\rm PDS}.
+}
+\label{eq:ND39coverage}
+\end{equation}
+
+For illustration only, an equal instrumented-area split gives
+$\overline\epsilon_{\rm PDS}\sim0.004$. Taking
+$\overline N_{\gamma,39}\sim4.4\times10^3$ photons/decay,
+\begin{equation}
+R_{\rm PE,39}^{\rm TPC}
+\sim(313)(4.4\times10^3)(0.30)(0.004)
+\simeq
+\boxed{\SI{1.65e3}{PE/s/TPC}}.
+\end{equation}
+For eight TPCs,
+\begin{equation}
+R_{\rm PE,39}^{2\times2}\sim\SI{1.32e4}{PE/s}.
+\end{equation}
+These PE rates are only order-of-magnitude checks because reflections,
+absorption, panel layout, thresholds, and the precise experimental definition
+of PDE have not yet been folded in. Equation~\eqref{eq:ND39exact} is the
+preferred analytical calculation.
+
+\subsection{Cosmic-muon term}
+
+For a muon trajectory $\Gamma$ crossing a TPC, the detected PE in optical
+detector $j$ is
+\begin{equation}
+N_{\rm PE,\mu}^{(j)}
+=
+\int_{\Gamma\cap V_{\rm TPC}}
+Y_\gamma
+\left(\frac{dE}{dx}\right)_\mu
+\frac{\Omega_j(\bm r)}{4\pi}
+P_{{\rm transport},j}(\bm r)
+\epsilon_j\,d\ell .
+\end{equation}
+The time-averaged cosmic-light rate is
+\begin{equation}
+\boxed{
+R_{\rm PE,\mu}^{(j)}
+=
+\int d\Omega\int dA_\perp\,
+\Phi_\mu(\theta,\phi)\,
+N_{\rm PE,\mu}^{(j)}(\theta,\phi,\bm r_0).
+}
+\end{equation}
+
+Thus the channel-level background model is
+\begin{equation}
+\boxed{
+R_{\rm PE}^{2\times2,j}
+=
+R_{\rm PE,39}^{(j)}
++
+R_{\rm PE,\mu}^{(j)}
++
+R_{\rm PE,other\,rad}^{(j)}
++
+R_{\rm SiPM}^{(j)} .
+}
+\end{equation}
+
+The 2$\times$2 is useful as a control measurement: the intrinsic
+$^{39}$Ar normalization is only about 313 decays/s per optically isolated
+TPC, while it has high optical coverage and a substantial cosmic component.
+Random-trigger and externally tagged track samples can therefore separate the
+continuous radiological floor from burst-like cosmic scintillation.
+
+% Sources:
+% DUNE ND-LAr 2x2 Design and Status, NuFact 2024:
+% https://indico.fnal.gov/event/63406/contributions/297832/
+% Fermilab 2x2 description and active mass:
+% https://indico.fnal.gov/event/59506/
+% Module-0 detector paper:
+% https://lss.fnal.gov/archive/2024/pub/fermilab-pub-24-0073-lbnf.pdf
