@@ -1,0 +1,120 @@
+\section{Order of magnitude per PDS readout channel}
+\label{sec:perchannel}
+
+The requested comparison is the time-averaged \textbf{primary scintillation
+PE/s per electronic readout channel}. The cited designs have
+\textbf{32 channels in ProtoDUNE-VD}, \textbf{1344 in one FD-VD module},
+\textbf{8400 in full ND-LAr}, and \textbf{384 in ND 2$\times$2}
+\cite{pd_channels,vd_tdr,nd_cdr,nd_channels,nd_operation}.
+Full ND-LAr and the 2$\times$2 prototype are separate detectors.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Readout group & Channels & $^{39}$Ar & Cosmic tracks \\
+ & in group & PE/s/channel & PE/s/channel \\
+\midrule
+ProtoDUNE-VD cathode XA & 16 & $7.7\times10^4$ & $1.2\times10^7$ \\
+ProtoDUNE-VD wall XA & 16 & $3.9\times10^4$ & $6.1\times10^6$ \\
+\addlinespace
+FD-VD cathode XA & 640 & $2.2\times10^5$ & $8.5$ \\
+FD-VD long-wall XA & 640 & $1.1\times10^5$ & $4.3$ \\
+FD-VD short-wall XA & 64 & $1.1\times10^5$ & $4.2$ \\
+\addlinespace
+Full ND-LAr ArCLight & 4200 & $44$ & $90$ \\
+Full ND-LAr LCM & 4200 & $133$ & $271$ \\
+\addlinespace
+ND 2$\times$2 ArCLight & 192 & $15$ & $12$ \\
+ND 2$\times$2 LCM & 192 & $48$ & $39$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+These are \textbf{conditional reference estimates, not measured rates}.
+VD rows use representative XA positions, with equal sharing between two
+channels per XA; they are not averages over the installed arrays. ND rows
+are technology averages under a uniform first-hit wall-flux approximation.
+Cosmic rows use the site and track assumptions in Section~\ref{sec:cosmicnumbers},
+with no beam light. Dark avalanches, correlated SiPM noise, and other
+radioactivity are excluded.
+
+For ND, the means over \emph{all} light channels are
+\begin{equation*}
+\begin{array}{lcc}
+ & {}^{39}\mathrm{Ar} & \text{cosmic-track reference}\\
+\text{Full ND-LAr:} & \boxed{89\ \mathrm{PE/s/channel}} & 180\ \mathrm{PE/s/channel}\\[2pt]
+\text{ND 2$\times$2:} & \boxed{31\ \mathrm{PE/s/channel}} & 26\ \mathrm{PE/s/channel}.
+\end{array}
+\end{equation*}
+The radioactive-light scales are therefore $10^4$--$10^5$ PE/s/channel for
+ProtoDUNE-VD, $10^5$ for FD-VD, $10^2$ for full ND-LAr, and a few $10^1$
+for 2$\times$2. Optical segmentation, source mass per compartment, aperture,
+and PDE determine the light per channel.
+
+\subsection{Numerical inputs and channel sharing}
+
+Use atmospheric-argon activity $S_{39}=\SI{0.964}{Bq/kg}$,
+$\rho=\SI{1395}{kg/m^3}$, and the explicit reference yield
+\begin{equation}
+\overline N_{\gamma,39}^{\mathrm{ref}}
+=(\SI{0.220}{MeV})(20{,}000\ \mathrm{photons/MeV})=4400\ \mathrm{photons/decay}.
+\label{eq:yieldref}
+\end{equation}
+The mean beta energy is quoted in the DUNE interim design report
+\cite{dune_idr}; the VD TDR uses a total yield of 20,000 photons/MeV for
+its Xe-doped simulation~\cite{vd_tdr}. Their product is a reference
+normalization, not a measured beta-spectrum-averaged yield in each detector.
+Scale each $^{39}$Ar entry by its actual $\overline N_{\gamma,39}/4400$.
+
+For VD, adopt a whole-device XA PDE of $\epsilon_{\mathrm{XA}}=0.045$
+\cite{fdvd_pde} and calculate
+\begin{equation}
+\boxed{R_{39,\mathrm{ch}}=a_{39}G_{\mathrm{XA}}
+\overline N_{\gamma,39}\epsilon_{\mathrm{XA}}/2.}
+\label{eq:VDchannel}
+\end{equation}
+The factor $1/2$ shares detected light across two readout channels; it
+leaves the entrance area and emitting drift regions unchanged.
+Each row scales by $\epsilon_{\mathrm{XA}}/0.045$ and by changes in optical
+acceptance. Direct propagation here is unobstructed and lossless.
+
+Cathode entries use the centered double-sided geometry derived below.
+The wall benchmark is single-sided and sees one drift region: for
+ProtoDUNE use normal depth 3.0 m, tangential dimensions $6.8\times3.5$ m,
+and a centered aperture. For FD long/short walls use normal depths
+13.5/60 m, tangential dimensions $60\times6.5$/$13.5\times6.5$ m, and
+height 4.5 m above the cathode (1.25 m above the half-drift center).
+This assumes optical separation at the cathode. The resulting
+$G_{\mathrm{XA}}$ values are 0.290, 0.862 and 0.842 m$^3$, respectively.
+Actual wall and cathode placements require their own integrals.
+
+For ND, adopt whole-panel PDEs 0.002 (ArCLight) and 0.006 (LCM) from the
+prototype design summary~\cite{nd_status}, explicitly as reference values
+for both sizes. Divide the light assigned to each technology by its own
+channel count. The coverage, compartment masses, and channel derivation
+are given in Section~\ref{sec:nd2x2}.
+
+\subsection{If ``activity per channel'' means Bq}
+
+Dividing total modeled $^{39}$Ar decays by the readout count gives the
+following bookkeeping normalization:
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Detector & Source mass (t) & Total decays/s & Decays/s divided by channels \\
+\midrule
+ProtoDUNE-VD & 199 & $1.92\times10^5$ & $6.00\times10^3$ \\
+FD-VD & 14,689 & $1.42\times10^7$ & $1.05\times10^4$ \\
+Full ND-LAr & 146.5 & $1.41\times10^5$ & $16.8$ \\
+ND 2$\times$2 & 2.4 & $2.31\times10^3$ & $6.03$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+VD masses follow the reference source boxes; ND-LAr follows 35 active
+$1\times1\times3$ m modules~\cite{nd_cdr}. These are not cryostat totals
+or fiducial selection masses. The quotient is \emph{not} a channel event
+rate: a decay can illuminate several channels or produce no detected PE.
+The optical calculation above supplies the detected-light comparison.
+
+\clearpage

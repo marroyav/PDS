@@ -1,0 +1,67 @@
+\subsection{Numerical track-light references for the front-page table}
+\label{sec:cosmicnumbers}
+
+For an order-of-magnitude conversion, use a minimum-ionizing track loss
+$w_\mu=\SI{210.5}{MeV/m}$ (PDG liquid-argon table~\cite{pdg_argon}) and
+$Y_{\gamma,\mu}=20{,}000\ \mathrm{photons/MeV}$. If the time-averaged
+track-length density $\xi_\mu$ is spatially uniform, its photon production
+ density and VD channel rate are
+\begin{equation}
+q_{\gamma,\mu}=\xi_\mu w_\mu Y_{\gamma,\mu},\qquad
+R_{\mu,\mathrm{ch}}^{\mathrm{VD}}
+=q_{\gamma,\mu}G_{\mathrm{XA}}\epsilon_{\mathrm{XA}}/2.
+\label{eq:uniformmu}
+\end{equation}
+Here $[\xi_\mu]=\mathrm{m\ of\ track}/(\mathrm{m^3\,s})$.
+This uses the same optical integrals as $^{39}$Ar; spatial uniformity,
+constant track loss, and negligible shower light are additional assumptions.
+
+\paragraph{ProtoDUNE-VD surface.}
+The PDG quotes approximately one muon/cm$^2$/min through a horizontal
+ detector and an approximate $\cos^2\theta$ angular distribution
+\cite{pdg_cosmic}. With intensity defined per area normal to the track,
+$F_h=\int I(\theta)\cos\theta\,d\Omega$ whereas
+$\xi_\mu=\int I(\theta)\,d\Omega=(4/3)F_h$. Hence
+$F_h=\SI{166.7}{m^{-2}.s^{-1}}$ and
+$\xi_\mu=\SI{222.2}{m^{-2}.s^{-1}}$. This gives about
+$1.2\times10^7$ PE/s/cathode channel and $6.1\times10^6$ PE/s/wall channel.
+These are generic unshielded surface values; the CERN overburden, angular distribution,
+and CRT-measured track population must replace this reference for site rates.
+
+\paragraph{FD-VD, deep-underground track reference.}
+The measured total muon flux at the SURF Davis Campus is
+$(5.31\pm0.17)\times10^{-9}$ cm$^{-2}$s$^{-1}$~\cite{surf_muons}.
+For an order-of-magnitude track benchmark take
+$\xi_\mu\simeq\SI{5.31e-5}{m^{-2}.s^{-1}}$, giving
+4--9 PE/s/channel. Equating this site's scalar flux to track-length density
+is an approximation: a DUNE-hall angular/overburden calculation supplies the
+actual conversion. High-energy radiative losses and showers are excluded;
+these numbers describe the minimum-ionizing track term only.
+
+\paragraph{Full ND-LAr and the 2$\times$2 underground prototype.}
+For a total detector crossing rate $f_\mu$ and mean \emph{active-argon}
+track length $\overline\ell_\mu$, the uniform wall-flux approximation gives
+\begin{equation}
+\boxed{R_{\mu,\mathrm{ch},t}^{\mathrm{ND}}
+=\frac{f_\mu\overline\ell_\mu w_\mu Y_{\gamma,\mu}
+h_t\epsilon_t}{N_{\mathrm{ch},t}},\quad t=A,L.}
+\label{eq:NDmu}
+\end{equation}
+The ND CDR data-volume model uses an anticipated 100 Hz cosmic crossing
+rate for full ND-LAr~\cite{nd_cdr}. Adopt that rate and an \emph{assumed}
+3 m mean active path: ArCLight/LCM give 90/271 PE/s/channel and the
+all-channel mean is 180. Scale these entries by
+$(f_\mu/100\ \mathrm{Hz})(\overline\ell_\mu/3\ \mathrm m)$.
+The 2$\times$2 operation paper estimates approximately 2 Hz in MINOS Hall
+\cite{nd_operation}. With an \emph{assumed} 1 m mean active path, its
+ArCLight/LCM values are 12/39 PE/s/channel and the mean is 26. Scale by
+$(f_\mu/2\ \mathrm{Hz})(\overline\ell_\mu/1\ \mathrm m)$.
+These are different underground sites and sizes; neither the prototype's
+2 Hz nor ProtoDUNE's surface flux is transferred to full ND-LAr.
+Beam neutrinos, beam-induced rock muons, and associated secondaries require
+ a separate spill-dependent contribution and are absent from this comparison.
+
+The reference light sums are therefore about $10^7$ PE/s/channel for
+surface ProtoDUNE, $10^5$ for FD-VD, a few $10^2$ for full ND-LAr, and a
+few $10^1$ for underground 2$\times$2. These totals include only the two
+modeled scintillation sources; they do not predict electronic trigger rates.

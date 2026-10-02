@@ -1,118 +1,126 @@
-\section{Apply the same model to the ND 2\texorpdfstring{$\times$}{x}2}
+\section{Full ND-LAr and ND 2\texorpdfstring{$\times$}{x}2}
 \label{sec:nd2x2}
 
-\subsection{Keep mass normalization consistent with optical segmentation}
+\subsection{Two detector sizes, two channel counts}
 
-The 2$\times$2 uses four modules, each with two TPC regions separated by a
-central cathode. Adopt optical isolation of those eight regions as a first
-approximation. Reference descriptions quote \SI{2.6}{t} of total active
-argon~\cite{nd_mass}, prototype module dimensions around
-$0.7\times0.7\times1.4$ m, and about 25\% optical coverage~\cite{nd_status}.
-The external dimensions are not a specification of the active source volume.
-
-With eight equal active masses,
-\begin{align}
-R_{39,\mathrm{decay}}^{2\times2}
-&=S_{39}M=(0.964)(2600)=\SI{2506.4}{s^{-1}},\\
-R_{39,\mathrm{decay}}^{\mathrm{TPC}}
-&=\frac{S_{39}M}{8}=\SI{313.3}{s^{-1}}.
-\label{eq:ndactivity}
-\end{align}
-These are actual decay rates in the specified active mass. They are distinct
-from the acceptance-weighted coefficients $a_{39}G$ in the XA benchmark.
-For an active-only source model at the reference density, each TPC volume
-must satisfy $\rho V_{\mathrm{TPC}}=M/8$, giving
-$V_{\mathrm{TPC}}\simeq\SI{0.233}{m^3}$.
-
-For comparison, the earlier $0.67\times0.67\times1.8$ m envelope, multiplied
-by four and by the liquid density, would imply \SI{4.51}{t}. It cannot be
-used as a fully active source volume while normalizing to \SI{2.6}{t}.
-Use the actual active boundaries for the spatial average. If additional
-argon is optically visible, include it explicitly as an additional source;
-it is absent from Eq.~\eqref{eq:ndactivity}.
-
-\subsection{Calculate wall-panel acceptance before applying PDE}
-
-For a uniform source in one TPC, the general expression is
+The full ND-LAr design has 35 optically separated modules, each with two
+cathode-separated drift regions. Each module contains 60 LCM panels read
+out by two SiPM channels each and 20 ArCLight panels read out by six each
+\cite{nd_cdr}. Thus
 \begin{equation}
-\boxed{R_{39,j}
-=R_{39,\mathrm{decay}}^{\mathrm{TPC}}\,
-\overline N_{\gamma,39}\,
-\left\langle K_j\right\rangle_V,\qquad
-\left\langle K_j\right\rangle_V
-=\frac{1}{V_{\mathrm{TPC}}}\int_{V_{\mathrm{TPC}}}K_j\,dV.}
-\label{eq:ND39exact}
+\boxed{N_{\mathrm{ch}}^{\mathrm{ND-LAr}}
+=35(60\times2+20\times6)=8400,}
 \end{equation}
-Spatially varying transport belongs inside this integral. Factoring it out
-requires an explicitly acceptance-weighted average.
+with 4200 channels of each technology. This also matches the explicitly
+quoted 8400 electronic channels in the 2024 design presentation
+\cite{nd_channels}. The count refers to PDS readout channels, not charge
+pixels, individual photon hits, or the other near-detector subsystems.
+The older CDR computing estimate (section 9.3.2.1) instead assumes about
+4200 photon-detector channels; this comparison uses the explicitly quoted
+8400-channel electronics design, consistent with reading the individual
+SiPM signals described in its light-readout section.
 
-For lossless direct light and constant panel PDE,
-$\langle K_j\rangle_V=\epsilon_j\mathcal G_j$, where
+The 2$\times$2 demonstrator has four smaller modules, eight TPC regions,
+and 384 individually digitized SiPM channels~\cite{nd_operation}.
+The alternating three-LCM/one-ArCLight arrangement contains 96 LCMs
+and 32 ArCLights in total, giving
 \begin{equation}
+\boxed{N_{\mathrm{ch}}^{2\times2}
+=96\times2+32\times6=384,}
+\end{equation}
+with 192 channels of each technology. A full ND-LAr module has 240 light
+channels; a smaller prototype module has 96. Scaling 384 by 35/4 would
+therefore give the wrong full-detector count.
+
+\subsection{Argon activity and optical compartments}
+
+For full ND-LAr, the CDR active-volume reference is
+$35\times(1\times1\times3)=\SI{105}{m^3}$~\cite{nd_cdr}. At the adopted
+ density this corresponds to \SI{146.475}{t} and
+$R_{39,\mathrm{decay}}=\SI{1.412019e5}{s^{-1}}$.
+For 70 equal optically isolated TPC regions, each has \SI{1.5}{m^3} of
+active argon and about 2017 decays/s. Use active, optically emitting mass
+here, rather than the 50--67 t fiducial analysis masses quoted for particular
+selections. Optically visible external bath argon is excluded.
+
+For 2$\times$2, use the \SI{2.4}{t} active mass and 29\% geometrical
+coverage reported in the operation paper~\cite{nd_operation}, updating the
+older 2.6 t/25\% inputs. Its total activity is
+$(0.964)(2400)=\SI{2313.6}{s^{-1}}$, or \SI{289.2}{s^{-1}} per equal TPC.
+The active volume per region is then
+$(2400/8)/1395=\SI{0.215}{m^3}$; external module envelopes must not be
+ treated as fully active while retaining this mass normalization.
+
+\subsection{From total photons to each technology's channel rate}
+
+For a uniform source in a TPC, the exact direct-light expression is
+\begin{equation}
+R_{39,j}=S_{39}M_{\mathrm{TPC}}\overline N_{\gamma,39}\epsilon_j
+\mathcal G_j,\qquad
 \mathcal G_j=\frac{1}{V_{\mathrm{TPC}}}\int_{V_{\mathrm{TPC}}}
 \frac{\Omega_j(\bm r)}{4\pi}\,dV.
-\label{eq:NDgeom}
+\label{eq:ND39exact}
 \end{equation}
-Here $\mathcal G_j$ is dimensionless. For a rectangular panel in a plane,
-use normal distance $d>0$ and signed corner coordinates relative to the
-source projection: $X_-=x_{\min}-x_s$, $X_+=x_{\max}-x_s$, and similarly
-$Y_-,Y_+$. Its exact direct solid angle is
+For a rectangular panel at positive normal distance $d$, write signed corner
+coordinates relative to the source projection as $X_\pm,Y_\pm$. Then
 \begin{equation}
 \Omega_j=\sum_{p=\pm1}\sum_{q=\pm1}pq\,
 \tan^{-1}\!\left[\frac{X_pY_q}
 {d\sqrt{d^2+X_p^2+Y_q^2}}\right].
 \label{eq:NDsolidangle}
 \end{equation}
-This assumes an unobstructed planar aperture. With panel half-sizes $a,b$,
-the centered-source limit is
+For transport beyond unobstructed direct light, use the full response kernel
+in Eq.~\eqref{eq:master}. A measured panel PDE is a whole-panel response;
+ do not apply it independently to every SiPM and multiply the detected light.
+
+The order-of-magnitude table uses a simpler \emph{uniform first-hit wall-flux}
+model: $h_t$ is the fraction of the total interior surface instrumented by
+technology $t$, treated as its photon interception probability. No reflected
+second encounters are included. This gives technology-average rates
 \begin{equation}
-\Omega_j=4\tan^{-1}\!\left[\frac{ab}{d\sqrt{d^2+a^2+b^2}}\right].
+\boxed{R_{39,\mathrm{ch},t}\simeq
+\frac{S_{39}M\overline N_{\gamma,39}h_t\epsilon_t}
+{N_{\mathrm{ch},t}},\qquad t=A,L.}
+\label{eq:NDchannel}
 \end{equation}
-Sum $\mathcal G_j\epsilon_j$ over panels for the TPC total; do not
-multiply a per-TPC result by the number of channels.
+Surface coverage need not equal interception probability for real wall flux;
+ the exact geometry integral above replaces this approximation.
 
-\subsection{A numerical illustration, not an optical prediction}
+For the CDR full-size panels, ArCLight is approximately $0.30\times0.50$ m
+and LCM $0.10\times0.50$ m~\cite{nd_cdr}. Their areas per module are
+$20(0.15)=3.0$ m$^2$ and $60(0.05)=3.0$ m$^2$. Two isolated
+$0.5\times1\times3$ m boxes have total interior area
+$2\times2(0.5\times1+0.5\times3+1\times3)=20$ m$^2$,
+counting both faces of the cathode. Hence $h_A=h_L=0.15$ and total
+coverage is 0.30 in this reference geometry.
 
-The NuFact 2024 summary gives representative device efficiencies
-$\epsilon_A\sim0.002$ for ArCLight and $\epsilon_L\sim0.006$ for LCM,
-with approximately 25\% photocoverage~\cite{nd_status}. They are illustrative
-values for the stated configuration; installed devices require their own
-calibration.
+For 2$\times$2, the operation paper quotes 29\% coverage,
+$0.28\times0.30$ m ArCLights and $0.10\times0.30$ m LCMs
+\cite{nd_operation}. The instrumented-area shares are
+$f_A=32(0.084)/[32(0.084)+96(0.030)]=14/29$ and $f_L=15/29$.
+Therefore $h_A=0.29f_A=0.14$ and $h_L=0.15$.
+With $\epsilon_A=0.002$, $\epsilon_L=0.006$~\cite{nd_status} and the
+4400-photon reference yield, Eq.~\eqref{eq:NDchannel} gives
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Detector & ArCLight & LCM & All-channel mean \\
+ & PE/s/channel & PE/s/channel & PE/s/channel \\
+\midrule
+Full ND-LAr & 44.4 & 133.1 & 88.8 \\
+ND 2$\times$2 & 14.8 & 47.7 & 31.3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The corresponding detector totals are $7.46\times10^5$ and
+$1.20\times10^4$ primary PE/s. The mean is weighted by electronic
+channel counts, not by panel counts. Rescale each technology row with its
+actual yield, PDE, and interception probability; the full-size PDE is a
+reference extrapolation from prototype values, not a full-size calibration.
 
-A surface area fraction $f_{\mathrm{cov}}$ is not generally the photon
-interception probability $f_{\mathrm{hit}}=\sum_j\mathcal G_j$. Even uniform,
-isotropic emission inside a rectangular box need not illuminate all walls
-uniformly. Under an additional \emph{uniform first-hit wall-flux} approximation,
-with no repeated reflections, one may use
-\begin{equation}
-R_{39}^{\mathrm{TPC}}\simeq
-R_{39,\mathrm{decay}}^{\mathrm{TPC}}\,
-\overline N_{\gamma,39}\,f_{\mathrm{cov}}\,
-\overline\epsilon,\qquad
-\overline\epsilon=f_A\epsilon_A+f_L\epsilon_L,
-\end{equation}
-where $f_A+f_L=1$ are fractions of the instrumented area. With the
-\emph{assumed} equal area split, $\overline\epsilon=0.004$. The illustration
-is then conveniently written as
-\begin{equation}
-\boxed{R_{39}^{\mathrm{TPC}}\simeq\SI{1.38e3}{PE/s}
-\left(\frac{\overline N_{\gamma,39}}{4400}\right)
-\left(\frac{f_{\mathrm{cov}}}{0.25}\right)
-\left(\frac{\overline\epsilon}{0.004}\right).}
-\label{eq:NDtoy}
-\end{equation}
-The value 4400 photons/decay is an unvalidated normalization choice, retained
-only to show the numerical conversion; it is not a measured yield here.
-For eight identical TPCs these assumptions give
-$1.10\times10^4$ primary PE/s. The previous 30\% coverage choice would give
-$1.65\times10^3$ PE/s/TPC instead. The change reflects the coverage input,
-not a change in the underlying decay activity.
-
-Use Eq.~\eqref{eq:ND39exact} with measured panel geometry and response for a
-prediction. Equations~\eqref{eq:muPE}--\eqref{eq:CRT} also apply to ND cosmic
-light after replacing the volume and detector kernel. For NuMI data, separate
-beam-on and beam-off samples and account for beam-correlated light; surface
-cosmic commissioning and underground beam operation are different populations.
-The 2$\times$2 provides a useful independent test of the activity-to-light
-calculation, but its per-TPC toy rate cannot calibrate a per-XA rate without
-this response and normalization information.
+The average full-ND channel has about 2.84 times the radioactive-light rate
+of a 2$\times$2 channel in this model, while the channel count is 21.875
+ times larger. That difference follows from source mass, coverage, and
+channel sharing, rather than from simply dividing or multiplying by the
+number of modules. The separate site-dependent cosmic estimates are
+ given in Section~\ref{sec:cosmicnumbers}.

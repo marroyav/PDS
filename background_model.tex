@@ -7,33 +7,16 @@
 \usepackage[hidelinks]{hyperref}
 
 \title{Analytical Photon-Detector Background Model\\
-ProtoDUNE-VD, DUNE FD-VD, and the ND 2$\times$2}
+ProtoDUNE-VD, DUNE FD-VD, Full ND-LAr, and ND 2$\times$2}
 \author{}
 \date{\today}
 
 \begin{document}
 \maketitle
 
-\section{What this calculation establishes}
+\input{per_channel_estimates}
 
-For a uniform radioactive source, the light received by one photon detector
-is set by its optical acceptance integrated over the emitting volume.
-Total argon activity alone does not determine the rate in that detector.
-This note makes that distinction explicit and separates a calculable geometry
-benchmark from the response measurements needed for a detector prediction.
-
-The main results are:
-\begin{itemize}
-    \item For equal double-sided X-ARAPUCAs (XAs) at the centers of the
-    reference cathode planes, the direct-light geometrical acceptance grows
-    by a factor of \textbf{2.912} from ProtoDUNE-VD to FD-VD.
-    \item This becomes a $^{39}$Ar photoelectron-rate ratio only if the source
-    density, scintillation yield, and optical response are equal. It is
-    neither a total-background ratio nor an array-averaged result.
-    \item For the ND 2$\times$2, a \SI{2.6}{t} active mass gives approximately
-    313 $^{39}$Ar decays/s in each of eight equal TPCs. Converting that
-    activity to detected light requires the wall-detector acceptance.
-\end{itemize}
+\section{Observable and response conventions}
 
 \subsection{Define the observable before adding backgrounds}
 
@@ -246,8 +229,8 @@ volume. Do not use the beta endpoint as the mean decay energy.
 Device PDE is defined per photon incident on the aperture, not per photon
 created in the argon. The cited XA study corrects its PE for crosstalk and
 reports configuration-dependent efficiencies up to $(4.5\pm0.4)\%$ at
-4.5 V overvoltage~\cite{fdvd_pde}. A nominal 5\% is therefore an illustrative
-response parameter, not an established efficiency for every installed XA.
+4.5 V overvoltage~\cite{fdvd_pde}. The front-page estimate adopts 4.5\%
+as a reference response, not an established efficiency for every installed XA.
 Neither the PDE nor the scintillation spectrum should be transferred between
 pure and Xe-doped argon without checking their wavelength dependence.
 
@@ -278,6 +261,8 @@ Integrate over incoming trajectories once. If a quoted flux is instead per
 horizontal area, use its corresponding projected-area convention; do not
 insert a second cosine correction. A scalar surface-to-underground flux
 ratio alone does not account for changed energy and angular distributions.
+
+\input{cosmic_estimates}
 
 \subsection{Convert tagged events into a rate}
 
@@ -329,15 +314,16 @@ For general optical transport, replace $A\ell\epsilon$ by
 $\int K_j\,dV$ from Eq.~\eqref{eq:master}. Evaluate the actual positions
 before forming an average over many XAs; sum their rates for an array total.
 
-The underground setting suppresses the cosmic contribution, but its size
-relative to $^{39}$Ar, other radioactivity, and instrumental noise is not
-calculated here. This note therefore does not establish that $^{39}$Ar
-necessarily dominates the observed FD background. Apply the geometry ratio
+The track-only cosmic benchmark is much smaller than the $^{39}$Ar reference
+in FD-VD. This does not establish the dominant component of measured charge:
+other radioactivity, instrumental noise, showers, and acquisition acceptance
+are separate inputs. Apply the geometry ratio
 only to an independently estimated $^{39}$Ar component, not to all off-tag
 charge or to the full ProtoDUNE background.
 
 \input{nd_2x2_background}
 
+\clearpage
 \section{Measurements needed for a prediction}
 
 A quantitative comparison requires:
@@ -353,13 +339,14 @@ A quantitative comparison requires:
     \item CRT-tagged excess light versus track geometry and a constraint on
     missed cosmics and other radiological sources.
 \end{enumerate}
-The geometry calculation is reproducible and supports a factor of about
-three for the specified central-XA benchmark. Absolute PE rates, trigger
-rates, and the dominant background in operating detectors remain to be
-established with these inputs.
+The reference calculation now gives explicit per-channel light rates for
+all four detectors: $^{39}$Ar contributes about $10^4$--$10^5$ PE/s/channel
+in ProtoDUNE-VD, $10^5$ in FD-VD, $10^2$ in full ND-LAr, and a few $10^1$
+in ND 2$\times$2. These are conditional optical estimates. The listed inputs
+are needed to turn them into operating-detector predictions or trigger rates.
 
 \clearpage
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \raggedright
 \bibitem{pdvd_geometry}
 L. Zambelli for the DUNE Collaboration, \emph{Performance of the DUNE Vertical Drift Technology
@@ -379,13 +366,47 @@ DEAP-3600 Collaboration, \emph{Precision measurement of the specific activity
 of $^{39}$Ar in atmospheric argon with the DEAP-3600 detector},
 Eur. Phys. J. C 83 (2023).
 \href{https://link.springer.com/article/10.1140/epjc/s10052-023-11678-6}{doi:10.1140/epjc/s10052-023-11678-6}.
-\bibitem{nd_mass}
-T. Murphy, \emph{2x2 demonstrator in 10 minutes}, New Perspectives 2023.
-\href{https://indico.fnal.gov/event/59506/contributions/269910/}{Fermilab contribution 269910}.
 \bibitem{nd_status}
 S. Kumaran, \emph{DUNE ND-LAr 2x2: Design and Status}, NuFact 2024,
 slides 6 and 9--10.
 \href{https://indico.fnal.gov/event/63406/contributions/297832/}{Fermilab contribution 297832}.
+\bibitem{pd_channels}
+A. Roche Fern\'andez, \emph{ProtoDUNEs: Testing Technologies for the Deep
+Underground Neutrino Experiment}, XVII CPAN days, 19 November 2025, slide 7.
+\href{https://indico.ific.uv.es/event/8035/contributions/29121/attachments/14443/21364/CPAN_2025_ProtoDUNEs.pdf}{IFIC presentation PDF}.
+\bibitem{vd_tdr}
+DUNE Collaboration, \emph{The DUNE Far Detector Vertical Drift Technology,
+Technical Design Report}, sections 6.2--6.3 and Table 6.3.
+\href{https://arxiv.org/abs/2312.03130}{arXiv:2312.03130}.
+\bibitem{nd_cdr}
+DUNE Collaboration, \emph{DUNE Near Detector Conceptual Design Report},
+Instruments 5 (2021) 31, sections 2.3.3, 2.8 and 9.3.2.1.
+\href{https://arxiv.org/abs/2103.13910}{arXiv:2103.13910}.
+\bibitem{nd_channels}
+P. de Jong, \emph{Towards the Deep Underground Neutrino Experiment},
+CAN Symposium 2024, slides 15 and 17.
+\href{https://indico.nikhef.nl/event/5234/contributions/21855/attachments/8564/12354/Towards_DUNE_PdJ.pdf}{Nikhef presentation PDF}.
+\bibitem{nd_operation}
+DUNE Collaboration, \emph{Operation of a Modular 3D-Pixelated Liquid Argon
+Time-Projection Chamber in a Neutrino Beam}, Instruments 10 (2026) 18,
+sections 2.3, 2.6.3 and 3.1.
+\href{https://arxiv.org/abs/2509.07012}{arXiv:2509.07012};
+\href{https://doi.org/10.3390/instruments10010018}{doi:10.3390/instruments10010018}.
+\bibitem{dune_idr}
+DUNE Collaboration, \emph{DUNE Far Detector Interim Design Report,
+Volume 2: Single-Phase Module}, section 5.1.2.
+\href{https://arxiv.org/abs/1807.10327}{arXiv:1807.10327}.
+\bibitem{pdg_cosmic}
+Particle Data Group, \emph{Cosmic Rays}, 2022 review, section 30.3.1.
+\href{https://pdg.lbl.gov/2022/reviews/rpp2022-rev-cosmic-rays.pdf}{PDG review PDF}.
+\bibitem{pdg_argon}
+Particle Data Group, \emph{Atomic and Nuclear Properties of Liquid Argon}.
+\href{https://pdg.lbl.gov/2017/AtomicNuclearProperties/HTML/liquid_argon.html}{PDG material table}.
+\bibitem{surf_muons}
+N. Abgrall et al., \emph{Muon Flux Measurements at the Davis Campus of the
+Sanford Underground Research Facility with the Majorana Demonstrator Veto
+System}, Astropart. Phys. 93 (2017) 70--75.
+\href{https://arxiv.org/abs/1602.07742}{arXiv:1602.07742}.
 \end{thebibliography}
 
 \end{document}
