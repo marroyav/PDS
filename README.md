@@ -24,5 +24,26 @@ To remove auxiliary build files while keeping the PDF:
 make clean
 ```
 
-Generated output is excluded from Git. Compilation verifies document syntax
-and references; it does not validate the physical assumptions or estimates.
+Generated output is excluded from Git.
+
+## Reproduce the numerical reasoning
+
+With Python 3, NumPy, and SciPy available:
+
+```sh
+python3 tools/check_background_model.py
+```
+
+The script reproduces the centered-XA direct-light integrals, finite-aperture
+corrections, atmospheric Ar-39 normalization, and the ND numerical illustration.
+It also checks the solid angle against independent surface integration,
+limiting cases, and quadrature convergence. The review was run with NumPy
+2.1.3 and SciPy 1.15.2; no experimental datasets are used.
+
+The geometry-only FD/ProtoDUNE ratio is 2.912 for the stated reference boxes
+and centered small apertures (2.923 with finite 0.6 m square apertures).
+This is not a measured total-background ratio. Absolute PE rates require
+scintillation yield, actual optical geometry, transport, and calibrated PDE.
+The note distinguishes primary PE, charge including correlated SiPM noise,
+tagged-event light, and trigger rates, and states the assumptions behind
+the ND coverage illustration.

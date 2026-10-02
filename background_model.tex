@@ -4,504 +4,388 @@
 \usepackage{amsmath,amssymb,bm}
 \usepackage{booktabs}
 \usepackage{siunitx}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
-\title{Analytical Estimate of Photon-Detector Backgrounds\\
-ProtoDUNE-VD $\rightarrow$ DUNE FD-VD}
+\title{Analytical Photon-Detector Background Model\\
+ProtoDUNE-VD, DUNE FD-VD, and the ND 2$\times$2}
 \author{}
 \date{\today}
 
 \begin{document}
 \maketitle
 
-\section{Purpose}
+\section{What this calculation establishes}
 
-The objective is to estimate the photon-detector background seen by a cathode
-X-ARAPUCA (XA) in ProtoDUNE-VD and extrapolate it to the DUNE vertical-drift
-far detector.  The two dominant physical components considered here are
-\begin{equation}
-R_{\mathrm{tot}}
-=
-R_{39}
-+
-R_{\mu}
-+
-R_{\mathrm{other\,rad}}
-+
-R_{\mathrm{SiPM}},
-\end{equation}
-where $R_{39}$ is the contribution from $^{39}$Ar, $R_{\mu}$ is cosmic-muon
-induced scintillation light, $R_{\mathrm{other\,rad}}$ contains other
-radioactive sources, and $R_{\mathrm{SiPM}}$ includes detector dark noise and
-correlated SiPM noise.
+For a uniform radioactive source, the light received by one photon detector
+is set by its optical acceptance integrated over the emitting volume.
+Total argon activity alone does not determine the rate in that detector.
+This note makes that distinction explicit and separates a calculable geometry
+benchmark from the response measurements needed for a detector prediction.
 
-The useful comparison variable is
-\begin{equation}
-\boxed{R_{\mathrm{PE}}\quad [\mathrm{PE/s/XA}]},
-\end{equation}
-rather than total detector activity.
-
-\section{Detector geometry used}
-
-ProtoDUNE-VD has a central cathode with approximately \SI{3.5}{m} drift on
-each side, with eight cathode X-ARAPUCAs.  The relevant transverse dimensions
-are approximately
-\begin{equation}
-X_{\mathrm{PD}} \simeq \SI{6.8}{m},
-\qquad
-Y_{\mathrm{PD}} \simeq \SI{3.0}{m},
-\qquad
-L_{\mathrm{PD}} \simeq \SI{3.5}{m}.
-\end{equation}
-
-For DUNE FD-VD, the central cathode separates two drift regions with a drift
-distance of approximately
-\begin{equation}
-L_{\mathrm{FD}} \simeq \SI{6.5}{m},
-\end{equation}
-and the cathode contains 320 double-sided X-ARAPUCAs.  A representative
-transverse scale is
-\begin{equation}
-X_{\mathrm{FD}} \simeq \SI{13.5}{m},
-\qquad
-Y_{\mathrm{FD}} \simeq \SI{60}{m}.
-\end{equation}
-
-The nominal XA frontal area is
-\begin{equation}
-A_{\mathrm{XA}} \simeq
-(0.60)(0.60)
-=
-\SI{0.36}{m^2}.
-\end{equation}
-
-\section{Geometrical acceptance for a uniform radioactive source}
-
-Consider a point-like isotropic scintillation source at
-$\bm{r}=(x,y,z)$ relative to the center of an XA.  In the small-area
-approximation, the geometrical probability for a photon to intersect the XA is
-\begin{equation}
-P_{\mathrm{geom}}(x,y,z)
-\simeq
-\frac{A_{\mathrm{XA}}\cos\theta}{4\pi r^2}
-=
-\frac{A_{\mathrm{XA}}}{4\pi}
-\frac{z}{(x^2+y^2+z^2)^{3/2}}.
-\end{equation}
-
-For a uniform source density, define
-\begin{equation}
-G
-=
-\int_V P_{\mathrm{geom}}\,dV.
-\end{equation}
-
-For one rectangular drift volume,
-\begin{equation}
-\frac{G_{\mathrm{side}}}{A_{\mathrm{XA}}}
-=
-\frac{1}{4\pi}
-\int_0^L
-\int_{-X/2}^{X/2}
-\int_{-Y/2}^{Y/2}
-\frac{z\,dx\,dy\,dz}
-{(x^2+y^2+z^2)^{3/2}}.
-\label{eq:Gvolume}
-\end{equation}
-
-The $x$--$y$ integral is the solid angle subtended by the rectangle:
-\begin{equation}
-\Omega(z)
-=
-4\tan^{-1}
-\left[
-\frac{ab}
-{z\sqrt{z^2+a^2+b^2}}
-\right],
-\qquad
-a=\frac{X}{2},
-\quad
-b=\frac{Y}{2}.
-\end{equation}
-
-Therefore,
-\begin{equation}
-\boxed{
-\frac{G_{\mathrm{side}}}{A_{\mathrm{XA}}}
-=
-\frac{1}{4\pi}
-\int_0^L \Omega(z)\,dz
-}
-\label{eq:Gside}
-\end{equation}
-and for a double-sided cathode XA,
-\begin{equation}
-\boxed{
-\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}
-=
-2\frac{G_{\mathrm{side}}}{A_{\mathrm{XA}}}.
-}
-\end{equation}
-
-In the infinite-plane limit, $\Omega(z)\rightarrow 2\pi$, giving
-\begin{equation}
-\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}
-\rightarrow L.
-\end{equation}
-
-\section{Finite-geometry values}
-
-Numerical integration of Eq.~\eqref{eq:Gside} gives approximately
-\begin{align}
-\left(\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}\right)_{\mathrm{PD}}
-&\simeq
-\SI{1.61}{m},
-\\
-\left(\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}\right)_{\mathrm{FD}}
-&\simeq
-\SI{4.69}{m}.
-\end{align}
-
-Thus, before optical-transport corrections,
-\begin{equation}
-\boxed{
-\frac{R_{39}^{\mathrm{FD}}}
-{R_{39}^{\mathrm{PD}}}
-\simeq
-\frac{4.69}{1.61}
-\simeq
-2.9.
-}
-\label{eq:ratio39}
-\end{equation}
-
-This is the key geometrical result: the $^{39}$Ar background per cathode XA
-does \emph{not} scale with total detector mass.  It grows only by a factor of
-order three between ProtoDUNE-VD and FD-VD in this first-order direct-light
-model.
-
-\section{\texorpdfstring{$^{39}$Ar}{39Ar} activity}
-
-The measured atmospheric-argon specific activity is
-\begin{equation}
-S_{39}
-=
-(0.964 \pm 0.001_{\mathrm{stat}}
-\pm 0.024_{\mathrm{sys}})
-\ \mathrm{Bq/kg}.
-\end{equation}
-
-Using
-\begin{equation}
-\rho_{\mathrm{LAr}}\simeq \SI{1395}{kg/m^3},
-\end{equation}
-the volumetric decay density is
-\begin{equation}
-a_{39}
-=
-S_{39}\rho_{\mathrm{LAr}}
-\simeq
-\SI{1.34e3}{decays.s^{-1}.m^{-3}}.
-\end{equation}
-
-Define the effective geometrical volume
-\begin{equation}
-V_{\mathrm{eff}}
-=
-G_{\mathrm{DS}}
-=
-A_{\mathrm{XA}}
-\left(
-\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}
-\right).
-\end{equation}
-
-With $A_{\mathrm{XA}}=\SI{0.36}{m^2}$,
-\begin{align}
-V_{\mathrm{eff}}^{\mathrm{PD}}
-&\simeq
-0.36\times1.61
-\simeq
-\SI{0.58}{m^3},
-\\
-V_{\mathrm{eff}}^{\mathrm{FD}}
-&\simeq
-0.36\times4.69
-\simeq
-\SI{1.69}{m^3}.
-\end{align}
-
-Hence the geometrically weighted $^{39}$Ar decay rates are
-\begin{align}
-R_{39,\mathrm{decay}}^{\mathrm{PD}}
-&=
-a_{39}V_{\mathrm{eff}}^{\mathrm{PD}}
-\simeq
-\SI{7.8e2}{s^{-1}},
-\\
-R_{39,\mathrm{decay}}^{\mathrm{FD}}
-&=
-a_{39}V_{\mathrm{eff}}^{\mathrm{FD}}
-\simeq
-\SI{2.3e3}{s^{-1}}.
-\end{align}
-
-If the mean scintillation yield per $^{39}$Ar decay is denoted by
-$\overline{N}_{\gamma,39}$, then
-\begin{equation}
-R_{\gamma,39}
-=
-R_{39,\mathrm{decay}}
-\,\overline{N}_{\gamma,39}.
-\end{equation}
-
-The corresponding detected PE rate is
-\begin{equation}
-\boxed{
-R_{\mathrm{PE},39}
-=
-a_{39}
-\,A_{\mathrm{XA}}
-\left(
-\frac{G_{\mathrm{DS}}}{A_{\mathrm{XA}}}
-\right)
-\overline{N}_{\gamma,39}
-\,\epsilon_{\mathrm{eff}}.
-}
-\label{eq:R39}
-\end{equation}
-
-Here $\epsilon_{\mathrm{eff}}$ must be defined carefully.  If the quoted XA
-efficiency already includes wavelength shifting, trapping, optical-window
-transmission, SiPM PDE, and collection effects, those factors must not be
-applied a second time.
-
-For the working assumption
-\begin{equation}
-\epsilon_{\mathrm{eff}}\sim 0.05,
-\end{equation}
-Eq.~\eqref{eq:R39} provides the conversion from the geometrical estimate to
-PE/s/XA once $\overline{N}_{\gamma,39}$ is fixed consistently with the drift
-field and xenon concentration.
-
-\section{Cosmic-muon light term}
-
-For a single cosmic muon with trajectory $\Gamma$, the deposited energy is
-\begin{equation}
-E_{\mu}
-=
-\int_{\Gamma}
-\left(\frac{dE}{dx}\right)_{\mu}
-\,d\ell.
-\end{equation}
-
-The emitted scintillation light is
-\begin{equation}
-N_{\gamma,\mu}
-=
-Y_{\gamma}(E,\mathcal{E},c_{\mathrm{Xe}})
-\,E_{\mu},
-\end{equation}
-where $Y_{\gamma}$ depends on deposited-energy density, electric field
-$\mathcal{E}$, and xenon concentration $c_{\mathrm{Xe}}$.
-
-For XA $j$, introduce the optical transfer function
-\begin{equation}
-T_j(\bm{r})
-=
-P_{\mathrm{geom},j}(\bm{r})
-\,
-P_{\mathrm{transport}}(\bm{r}\rightarrow j)
-\,
-\epsilon_{\mathrm{XA},j}.
-\end{equation}
-
-Then the PE yield for one muon is
-\begin{equation}
-N_{\mathrm{PE},\mu}^{(j)}
-=
-\int_{\Gamma}
-Y_{\gamma}
-\left(\frac{dE}{dx}\right)_{\mu}
-T_j(\bm{r})
-\,d\ell.
-\label{eq:muPE}
-\end{equation}
-
-For a cosmic-muon differential flux
-$\Phi_{\mu}(\theta,\phi)$, the time-averaged rate is
-\begin{equation}
-\boxed{
-R_{\mathrm{PE},\mu}^{(j)}
-=
-\int
-d\Omega
-\int
-dA_{\perp}\,
-\Phi_{\mu}(\theta,\phi)
-\,
-N_{\mathrm{PE},\mu}^{(j)}
-(\theta,\phi,\bm{r}_0).
-}
-\label{eq:muRate}
-\end{equation}
-
-Experimentally, the cleaner estimator is obtained directly from CRT-tagged
-events:
-\begin{equation}
-\boxed{
-R_{\mathrm{PE},\mu}^{(j)}
-=
-f_{\mu,\mathrm{CRT}}
-\,
-\left\langle
-N_{\mathrm{PE},\mu}^{(j)}
-\right\rangle,
-}
-\label{eq:CRT}
-\end{equation}
-after correcting for CRT geometrical acceptance and efficiency.
-
-\section{ProtoDUNE-VD to FD-VD extrapolation}
-
-Define
-\begin{equation}
-R_{\mathrm{PD}}
-=
-R_{39}^{\mathrm{PD}}
-+
-R_{\mu}^{\mathrm{PD}}
-+
-R_{\mathrm{other}}^{\mathrm{PD}},
-\end{equation}
-and
-\begin{equation}
-R_{\mathrm{FD}}
-=
-R_{39}^{\mathrm{FD}}
-+
-R_{\mu}^{\mathrm{FD}}
-+
-R_{\mathrm{other}}^{\mathrm{FD}}.
-\end{equation}
-
-The first-order radiological extrapolation is
-\begin{equation}
-\boxed{
-R_{39}^{\mathrm{FD}}
-\simeq
-2.9\,
-R_{39}^{\mathrm{PD}},
-}
-\end{equation}
-subject to changes in optical transport, Xe doping, electric field,
-reflectivity, detector response, and active optical area.
-
-The cosmic term should instead scale approximately as
-\begin{equation}
-R_{\mu}^{\mathrm{FD}}
-=
-R_{\mu}^{\mathrm{PD}}
-\,
-\frac{\Phi_{\mu}^{\mathrm{FD}}}
-{\Phi_{\mu}^{\mathrm{PD}}}
-\,
-C_{\mathrm{geom}}
-\,
-C_{\mathrm{opt}},
-\end{equation}
-where $C_{\mathrm{geom}}$ accounts for the different detector dimensions and
-track-length distributions, and $C_{\mathrm{opt}}$ accounts for different
-light transport.
-
-The core expectation is therefore
-\begin{equation}
-\boxed{
-\begin{gathered}
-\text{ProtoDUNE-VD: cosmic bursts + radiological floor}
-\\ \longrightarrow \\
-\text{FD-VD: radiological floor dominates}.
-\end{gathered}
-}
-\end{equation}
-
-\section{Quantities to extract from ProtoDUNE-VD data}
-
-The most useful experimental observables are
-\begin{enumerate}
-    \item random-trigger PE-rate distribution per cathode XA;
-    \item CRT-tagged PE per muon per cathode XA;
-    \item muon position and direction relative to each XA;
-    \item off-CRT background in the same acquisition windows;
-    \item dependence on Xe concentration;
-    \item SiPM dark-noise and correlated-noise contribution;
-    \item channel-to-channel variation in effective PDE.
-\end{enumerate}
-
-A direct decomposition can then be written as
-\begin{equation}
-R_{\mathrm{off}}
-=
-R_{39}
-+
-R_{\mathrm{other\,rad}}
-+
-R_{\mathrm{SiPM}},
-\end{equation}
-and
-\begin{equation}
-R_{\mathrm{on}}-R_{\mathrm{off}}
-\rightarrow
-R_{\mu}.
-\end{equation}
-
-This allows the measured ProtoDUNE-VD background to be extrapolated to FD-VD
-without relying exclusively on full optical Monte Carlo.
-
-\section{Important limitations}
-
-The present model is intentionally analytical.  It neglects or compresses
-into effective factors:
+The main results are:
 \begin{itemize}
-    \item Rayleigh scattering;
-    \item VUV absorption;
-    \item reflections from detector structures;
-    \item field-cage transparency;
-    \item wavelength shifting and Xe transfer;
-    \item angular dependence of XA response;
-    \item finite XA active-window fraction;
-    \item nonuniform detector response;
-    \item other radiological isotopes and detector materials.
+    \item For equal double-sided X-ARAPUCAs (XAs) at the centers of the
+    reference cathode planes, the direct-light geometrical acceptance grows
+    by a factor of \textbf{2.912} from ProtoDUNE-VD to FD-VD.
+    \item This becomes a $^{39}$Ar photoelectron-rate ratio only if the source
+    density, scintillation yield, and optical response are equal. It is
+    neither a total-background ratio nor an array-averaged result.
+    \item For the ND 2$\times$2, a \SI{2.6}{t} active mass gives approximately
+    313 $^{39}$Ar decays/s in each of eight equal TPCs. Converting that
+    activity to detected light requires the wall-detector acceptance.
 \end{itemize}
 
-Therefore, Eq.~\eqref{eq:ratio39} should be interpreted as a
-\emph{finite-geometry direct-light scaling estimate}, not yet as a final
-prediction of measured PE rate.
+\subsection{Define the observable before adding backgrounds}
+
+Let $R_{\gamma\to\mathrm{PE},j}$ be the time-averaged rate of
+\emph{primary} photoelectrons caused by scintillation photons in optical
+unit $j$, with complete light integration and linear response. For the VD
+comparison, $j$ denotes one whole XA, summed over its readout channels:
+\begin{equation}
+R_{\gamma\to\mathrm{PE},j}
+=R_{39,j}+R_{\mu,j}+R_{\mathrm{other\,rad},j},
+\qquad [R]=\mathrm{PE/s}.
+\label{eq:components}
+\end{equation}
+For the ND, specify whether $j$ denotes a panel, channel, or sum of panels.
+A per-XA rate cannot be compared directly with a per-TPC rate.
+
+Measured charge in single-photoelectron units also contains primary dark
+avalanches and correlated avalanches (crosstalk and afterpulsing). A simple
+linear response model is
+\begin{equation}
+R_{Q,j}\simeq M_j\bigl(R_{\gamma\to\mathrm{PE},j}+D_j\bigr),
+\label{eq:noise}
+\end{equation}
+where $D_j$ is the primary dark-avalanche rate and $M_j$ is the mean measured
+charge, in SPE units, per primary avalanche for the chosen integration
+procedure. If light and dark pulses have different gate acceptance, use
+separate response factors. Correlated noise must not be added a second time
+if the adopted PE calibration or efficiency already includes it.
+
+A PE rate is not a pulse, trigger, or data rate. Those additionally depend on
+burst sizes, thresholds, pulse finding, integration windows, and dead time.
+
+\section{From radioactive activity to detected light}
+\label{sec:kernel}
+
+Define $K_j(\bm r)$ as the expected primary PE in unit $j$ per scintillation
+photon emitted isotropically at $\bm r$, averaged over the relevant emission
+spectrum. It includes optical propagation and the detector response. For a
+uniform decay density $a_{39}$ and spatially constant mean yield
+$\overline N_{\gamma,39}$,
+\begin{equation}
+\boxed{
+R_{39,j}=a_{39}\,\overline N_{\gamma,39}
+\int_{V_{\mathrm{opt}}}K_j(\bm r)\,dV .
+}
+\label{eq:master}
+\end{equation}
+Here $V_{\mathrm{opt}}$ is the argon volume optically visible to the unit.
+It need not equal the charge-active or fiducial volume. If source density,
+yield, or emission spectrum varies, keep those quantities inside the integral.
+
+The calculation therefore follows the chain
+\begin{equation*}
+\underbrace{a_{39}\,dV}_{\text{decays/s}}
+\quad\times\quad
+\underbrace{\overline N_{\gamma,39}}_{\text{photons/decay}}
+\quad\times\quad
+\underbrace{K_j}_{\text{primary PE/photon}}.
+\end{equation*}
+For unobstructed direct light, constant device efficiency, and a planar
+entrance aperture,
+\begin{equation}
+K_j^{\mathrm{direct}}(\bm r)
+=\epsilon_j\int_{A_j}
+\frac{\cos\theta(\bm r,\bm u)}{4\pi|\bm r-\bm u|^2}
+\,s(\bm r,\bm u)\,dA_{\bm u},
+\label{eq:directkernel}
+\end{equation}
+where $\bm u$ is a point on the aperture, $\theta$ is the incidence angle
+between the aperture-to-source direction and its source-facing normal,
+and $s$ is survival along that ray.
+With $s=1$, the integral is $\Omega_j/(4\pi)$. Reflected or scattered photons
+require additional paths in $K_j$; they are not generally described by a
+survival probability multiplying a direct solid angle.
+
+\section{A direct-light geometry benchmark for cathode XAs}
+
+\subsection{Reference geometry and area convention}
+
+Use rectangular source volumes on either side of a horizontal cathode.
+$X,Y$ span the cathode and $L$ is the drift distance on \emph{one} side;
+these are local model coordinates, not the experiment's axis convention.
+The reference dimensions are
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+ & $X$ (m) & $Y$ (m) & $L$ (m) \\
+\midrule
+ProtoDUNE-VD & 6.8 & 3.0 & 3.5 \\
+DUNE FD-VD & 13.5 & 60.0 & 6.5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The ProtoDUNE dimensions follow the reported $6.8\times3\times7$ m active
+volume~\cite{pdvd_geometry}; the FD dimensions are the reference design
+in Ref.~\cite{fdvd_geometry}. They define this benchmark, rather than a
+survey of the latest as-built geometry. Argon outside these boxes is excluded.
+
+Take $A=0.60\times0.60=\SI{0.36}{m^2}$ for \emph{one face} of an XA.
+The cathode design has 320 double-sided XAs~\cite{fdvd_pde}, but that count
+does not enter a per-XA calculation. Contributions from the two source
+volumes will be added explicitly; do not double $A$ as well. Match the area
+convention to the efficiency calibration: use either the active entrance
+area and its PDE, or a footprint-averaged response that includes inactive
+regions, without applying the same loss twice.
+
+\subsection{Derivation for an XA at the center of the cathode}
+
+In the small-aperture approximation, a source at $(x,y,z)$ on one side has
+\begin{equation}
+P_{\mathrm{geom}}(x,y,z)
+\simeq \frac{A}{4\pi}\frac{z}{(x^2+y^2+z^2)^{3/2}},
+\qquad z>0.
+\end{equation}
+Define the geometrical effective volume $G=\int_V P_{\mathrm{geom}}\,dV$.
+It has units of volume, but it is an acceptance-weighted integral, not a
+region in which every decay is detected. For the centered reference geometry,
+\begin{align}
+\frac{G_{\mathrm{side}}}{A}
+&=\frac{1}{4\pi}\int_0^L\Omega_{\mathrm{slice}}(z)\,dz,
+\label{eq:Gside}\\
+\Omega_{\mathrm{slice}}(z)
+&=4\tan^{-1}\!\left[
+\frac{ab}{z\sqrt{z^2+a^2+b^2}}\right],
+\qquad a=X/2,\quad b=Y/2.
+\end{align}
+$\Omega_{\mathrm{slice}}$ is the solid angle of a rectangular \emph{source
+slice} as seen from the aperture center. It arises after integrating the
+kernel over $x,y$; it is not the XA solid angle seen by an individual source.
+For two equal drift regions and equal sensitivity on both faces, define
+\begin{equation}
+\boxed{\ell_{\mathrm{geom}}\equiv\frac{G_{\mathrm{DS}}}{A}
+=\frac{1}{2\pi}\int_0^L\Omega_{\mathrm{slice}}(z)\,dz.}
+\label{eq:ell}
+\end{equation}
+$\ell_{\mathrm{geom}}$ is a length. Since $0\leq\Omega_{\mathrm{slice}}\leq2\pi$,
+$0\leq\ell_{\mathrm{geom}}\leq L$; it approaches $L$ when the transverse source
+plane becomes infinite. A larger transverse area therefore does not produce
+an unlimited per-XA rate at fixed $L$. This explains why total mass is the
+wrong scaling variable for this geometry comparison.
+
+The small-aperture expression is not a valid pointwise probability very near
+the XA. The exact aperture solid angle remains bounded by $2\pi$ on each
+side. Averaging Eq.~\eqref{eq:Gside}, with shifted source bounds, over the
+finite aperture removes this approximation. Off-center XAs likewise require
+shifted bounds; the central result is not an average over installed devices.
+
+\subsection{Numerical result and checks}
+
+Numerical checks are provided by \path{tools/check_background_model.py}.
+The integrations give:
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Quantity & ProtoDUNE-VD & FD-VD \\
+\midrule
+$\ell_{\mathrm{geom}}$, small aperture (m) & 1.60998 & 4.68883 \\
+$G_{\mathrm{DS}}=A\ell_{\mathrm{geom}}$ (m$^3$) & 0.57959 & 1.68798 \\
+$\ell_{\mathrm{geom}}$, finite $0.6\times0.6$ m aperture (m) & 1.60406 & 4.68815 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Thus the centered small-aperture acceptance ratio is
+\begin{equation}
+\boxed{\frac{G_{\mathrm{FD}}}{G_{\mathrm{PD}}}
+=\frac{4.68883}{1.60998}=2.91235.}
+\label{eq:ratio39}
+\end{equation}
+Finite aperture averaging gives approximately 2.923; it changes this ratio by
+less than 0.4\% in the stated geometry. This small correction does not bound
+uncertainties from device placement, optical transport, or source-volume choice.
+
+\section{Normalize the radioactive contribution}
+
+The DEAP-3600 atmospheric-argon measurement is~\cite{ar39}
+\begin{equation}
+S_{39}=(0.964\pm0.001_{\mathrm{stat}}\pm0.024_{\mathrm{sys}})
+\ \mathrm{Bq/kg}.
+\end{equation}
+With the reference liquid density $\rho=\SI{1395}{kg/m^3}$,
+\begin{equation}
+a_{39}=S_{39}\rho=\SI{1344.78}{s^{-1}.m^{-3}}.
+\end{equation}
+This assumes atmospheric argon with the quoted activity; substitute the
+appropriate value for a different argon inventory.
+
+For lossless direct propagation and constant device efficiency, the result is
+\begin{equation}
+\boxed{R_{39,j}^{\mathrm{direct}}
+=a_{39}A_j\ell_{\mathrm{geom},j}\,
+\overline N_{\gamma,39}\,\epsilon_j.}
+\label{eq:R39}
+\end{equation}
+The benchmark coefficients $a_{39}G_{\mathrm{DS}}$ are
+\SI{779.4}{s^{-1}} (ProtoDUNE) and \SI{2270.0}{s^{-1}} (FD).
+They are geometrically weighted decay rates, \emph{not} detected event rates.
+Multiply them by photons per decay to obtain incident photons/s, and then
+by PDE to obtain primary PE/s.
+
+The mean photon yield is a beta-spectrum average,
+\begin{equation}
+\overline N_{\gamma,39}
+=\int f_{39}(E)\,N_\gamma(E;\mathcal E,c_{\mathrm{Xe}})\,dE,
+\qquad \int f_{39}(E)\,dE=1,
+\end{equation}
+where $\mathcal E$ is the electric field and $c_{\mathrm{Xe}}$ the xenon
+concentration. Use the energy actually deposited in the optically modeled
+volume. Do not use the beta endpoint as the mean decay energy.
+
+Device PDE is defined per photon incident on the aperture, not per photon
+created in the argon. The cited XA study corrects its PE for crosstalk and
+reports configuration-dependent efficiencies up to $(4.5\pm0.4)\%$ at
+4.5 V overvoltage~\cite{fdvd_pde}. A nominal 5\% is therefore an illustrative
+response parameter, not an established efficiency for every installed XA.
+Neither the PDE nor the scintillation spectrum should be transferred between
+pure and Xe-doped argon without checking their wavelength dependence.
+
+\section{Cosmic light and what the CRT can measure}
+
+For one muon trajectory $\Gamma$, the same response kernel gives
+\begin{equation}
+N_{\mathrm{PE},\mu}^{(j)}
+=\int_{\Gamma\cap V_{\mathrm{opt}}}
+Y_\gamma(\ell)\left(\frac{dE}{d\ell}\right)_\mu
+K_j(\bm r(\ell))\,d\ell,
+\label{eq:muPE}
+\end{equation}
+where $Y_\gamma$ is photons per deposited energy, with local field and
+ionization-density dependence. This is a track-light approximation;
+showers, secondaries, and light from outside the selected track volume need
+additional contributions if significant.
+
+Define differential muon intensity $\Phi_\mu$ per area \emph{normal to the
+track}, per time, solid angle, and energy. Then
+\begin{equation}
+R_{\mu,j}=\int dE_\mu\,d\Omega\int dA_\perp\,
+\Phi_\mu(E_\mu,\Omega)\,
+N_{\mathrm{PE},\mu}^{(j)}(E_\mu,\Omega,\bm r_0).
+\label{eq:muRate}
+\end{equation}
+Integrate over incoming trajectories once. If a quoted flux is instead per
+horizontal area, use its corresponding projected-area convention; do not
+insert a second cosine correction. A scalar surface-to-underground flux
+ratio alone does not account for changed energy and angular distributions.
+
+\subsection{Convert tagged events into a rate}
+
+For equal-duration on-tag and matched off-time gates, let
+\begin{equation}
+\Delta n_j=\langle n_{j,\mathrm{on}}\rangle
+-\langle n_{j,\mathrm{off}}\rangle
+\qquad [\Delta n_j]=\mathrm{PE/tag}.
+\end{equation}
+After matching detector conditions and correcting PE response, the
+contribution associated with the \emph{accepted tag population}, within the
+chosen gate, is
+\begin{equation}
+\boxed{R_{\mu,j}^{\mathrm{tag,gate}}
+=f_{\mathrm{tag}}\,\Delta n_j,\qquad
+f_{\mathrm{tag}}=N_{\mathrm{tag}}/T_{\mathrm{live}}.}
+\label{eq:CRT}
+\end{equation}
+The product has units PE/s. The conditional excess $\Delta n_j/\Delta t$
+is a rate \emph{during selected gates}, not the time-averaged cosmic rate.
+
+To infer all-muon light, correct for tag efficiency, live time, gate light
+acceptance, and the position/direction/energy selection of the tagger.
+Correcting only the total tag rate is insufficient if missed muons have a
+different PE yield. Use binwise corrections or a validated response model;
+regions of zero tag acceptance require an independent constraint. Reject or
+account for duplicate tags and overlapping gates.
+
+An off-tag sample still contains untagged cosmic light. An off-time sample
+estimates the unrelated background under a tag, including accidental muons.
+Neither is automatically a pure $^{39}$Ar sample. Random triggers, gain and
+dark-noise calibration, and a residual-cosmic estimate are needed to separate
+the terms in Eq.~\eqref{eq:components}.
+
+\section{What can be extrapolated to the far detector?}
+
+For the same approximations as Eq.~\eqref{eq:R39},
+\begin{equation}
+\frac{R_{39}^{\mathrm{FD}}}{R_{39}^{\mathrm{PD}}}
+=\frac{a_{39}^{\mathrm{FD}}}{a_{39}^{\mathrm{PD}}}
+\frac{A_{\mathrm{FD}}}{A_{\mathrm{PD}}}
+\frac{\ell_{\mathrm{FD}}}{\ell_{\mathrm{PD}}}
+\frac{\overline N_{\gamma,39}^{\mathrm{FD}}}{\overline N_{\gamma,39}^{\mathrm{PD}}}
+\frac{\epsilon_{\mathrm{FD}}}{\epsilon_{\mathrm{PD}}}.
+\label{eq:scaling}
+\end{equation}
+The value 2.912 follows only when every factor except geometry cancels.
+For general optical transport, replace $A\ell\epsilon$ by
+$\int K_j\,dV$ from Eq.~\eqref{eq:master}. Evaluate the actual positions
+before forming an average over many XAs; sum their rates for an array total.
+
+The underground setting suppresses the cosmic contribution, but its size
+relative to $^{39}$Ar, other radioactivity, and instrumental noise is not
+calculated here. This note therefore does not establish that $^{39}$Ar
+necessarily dominates the observed FD background. Apply the geometry ratio
+only to an independently estimated $^{39}$Ar component, not to all off-tag
+charge or to the full ProtoDUNE background.
 
 \input{nd_2x2_background}
 
+\section{Measurements needed for a prediction}
+
+A quantitative comparison requires:
+\begin{enumerate}
+    \item the actual XA/panel positions, active entrance areas, and optically
+    visible argon volume, including any light through openings;
+    \item a beta-spectrum-averaged scintillation yield at each operating
+    field and xenon concentration;
+    \item device PDE and optical propagation calibrated for the appropriate
+    spectrum, incidence angles, and operating voltage;
+    \item random-trigger light, primary dark rate, correlated-noise response,
+    and acquisition acceptance in consistent PE units;
+    \item CRT-tagged excess light versus track geometry and a constraint on
+    missed cosmics and other radiological sources.
+\end{enumerate}
+The geometry calculation is reproducible and supports a factor of about
+three for the specified central-XA benchmark. Absolute PE rates, trigger
+rates, and the dominant background in operating detectors remain to be
+established with these inputs.
+
+\clearpage
 \begin{thebibliography}{9}
 \raggedright
-
 \bibitem{pdvd_geometry}
-L. Zambelli,
-\emph{ProtoDUNE-VD: Module-0},
-NuFact 2023 presentation.
-\url{https://indico.cern.ch/event/1216905/contributions/5456597/attachments/2700868/4688179/lzambell_nufact23_protodunevd.pdf}
-
+L. Zambelli for the DUNE Collaboration, \emph{Performance of the DUNE Vertical Drift Technology
+Anodes}, 2024 poster.
+\href{https://lss.fnal.gov/archive/2024/poster/fermilab-poster-24-0328-lbnf.pdf}{Fermilab poster PDF}.
+\bibitem{fdvd_geometry}
+L. Paulucci, \emph{The DUNE Vertical Drift Photon Detection System},
+JINST 17 (2022) C01067.
+\href{https://arxiv.org/abs/2112.09520}{arXiv:2112.09520}.
 \bibitem{fdvd_pde}
-\emph{Measurement of the X-ARAPUCA's absolute photon detection efficiency for
-the Deep Underground Neutrino Experiment's vertical drift far detector},
-Eur. Phys. J. C (2026).
-\url{https://link.springer.com/article/10.1140/epjc/s10052-026-16190-1}
-
+G. Botogoske et al., \emph{Measurement of the X-ARAPUCA's absolute photon
+detection efficiency for the deep underground neutrino experiment's vertical
+drift far detector}, Eur. Phys. J. C 86 (2026) 971.
+\href{https://link.springer.com/article/10.1140/epjc/s10052-026-16190-1}{doi:10.1140/epjc/s10052-026-16190-1}.
 \bibitem{ar39}
-DEAP-3600 Collaboration,
-\emph{Precision measurement of the specific activity of $^{39}$Ar in
-atmospheric argon with the DEAP-3600 detector},
+DEAP-3600 Collaboration, \emph{Precision measurement of the specific activity
+of $^{39}$Ar in atmospheric argon with the DEAP-3600 detector},
 Eur. Phys. J. C 83 (2023).
-\url{https://link.springer.com/article/10.1140/epjc/s10052-023-11678-6}
-
+\href{https://link.springer.com/article/10.1140/epjc/s10052-023-11678-6}{doi:10.1140/epjc/s10052-023-11678-6}.
+\bibitem{nd_mass}
+T. Murphy, \emph{2x2 demonstrator in 10 minutes}, New Perspectives 2023.
+\href{https://indico.fnal.gov/event/59506/contributions/269910/}{Fermilab contribution 269910}.
+\bibitem{nd_status}
+S. Kumaran, \emph{DUNE ND-LAr 2x2: Design and Status}, NuFact 2024,
+slides 6 and 9--10.
+\href{https://indico.fnal.gov/event/63406/contributions/297832/}{Fermilab contribution 297832}.
 \end{thebibliography}
 
 \end{document}
